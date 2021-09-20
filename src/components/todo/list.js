@@ -9,6 +9,7 @@ const settings = useContext(SettingsContext)
   const usersPerPage = settings.numOfItems;
   const pagesVisited = pageNumber * usersPerPage;
 
+  console.log(usersPerPage);
   const displayUsers = props.list
     .slice(pagesVisited, pagesVisited + usersPerPage)
     .map((item) => {
@@ -33,6 +34,8 @@ const settings = useContext(SettingsContext)
     const pageCount = Math.ceil(props.list.length / usersPerPage);
     const changePage = ({ selected }) => {
       setPageNumber(selected);
+      console.log( 'pagN',pageNumber);
+      console.log('selet',selected);
     };
   return (
     <>
