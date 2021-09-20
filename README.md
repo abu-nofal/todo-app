@@ -28,7 +28,7 @@
 
 ## Deployed link :
 
-- [sandBox](https://m0zgc.csb.app/)
+- [sandBox](https://hl90x.csb.app/)
 
 ## UML :
 
