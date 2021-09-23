@@ -33,3 +33,21 @@
 ## UML :
 
 - ![UML-lab31](./imges/lab31UML.png)
+
+--- 
+
+# LAB 33 - `<Login />` and `<Auth />`
+
+- me and osama we help each other to solve this lab 
+
+## PR link :
+
+- [PR](https://github.com/abu-nofal/todo-app/pull/6)
+
+## Deployed link :
+
+- [sandBox](https://hl90x.csb.app/)
+
+## UML :
+
+- ![UML-lab31](./imges/lab31UML.png)
