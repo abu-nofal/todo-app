@@ -46,7 +46,7 @@
 
 ## Deployed link :
 
-- [sandBox](https://hl90x.csb.app/)
+- [sandBox](https://8it9i.csb.app/)
 
 ## UML :
 
