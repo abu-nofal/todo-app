@@ -1,39 +1,49 @@
 import React, { useEffect, useState } from "react";
-import useForm from "../../hooks/form.js";
 import { FormGroup, Card, Elevation, Button } from "@blueprintjs/core";
-import { v4 as uuid } from "uuid";
+import superagent, { saveCookies } from "superagent";
+import cookie from "react-cookies";
 import List from "./list.js";
 import "./todo.css";
 const ToDo = () => {
   const [list, setList] = useState([]);
+  const [toDo, setToDo] = useState("");
+  const [assignee, setAssignee] = useState("");
+  const [difficulty, setDifficulty] = useState(3);
+  const [complete,setComplete]=useState('pending')
   const [incomplete, setIncomplete] = useState([]);
-  const { handleChange, handleSubmit } = useForm(addItem);
+  const API = "https://ibrahem-todo-server.herokuapp.com";
 
-  function addItem(item) {
-    console.log(item);
-    item.id = uuid();
-    item.complete = false;
-    setList([...list, item]);
+  const handleChangeAssigne = (e) => {
+    setAssignee(e.target.value);
+  };
+  const handleChangeITem = (e) => {
+    setToDo(e.target.value);
+  };
+  const handleChange = (e) => {
+    setDifficulty(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let obj = {
+      toDo: toDo,
+      assignee: assignee,
+      difficulty: difficulty,
+      complete:complete
+    };
+    addItem(obj);
+    e.target.reset();
+  };
+
+  async function addItem(item) {
+    const token = cookie.load("token");
+    let respone = await superagent
+      .post(`${API}/todo`, item)
+      .set("authorization", `Bearer ${token}`);
+    console.log(respone);
   }
-
-  function deleteItem(id) {
-    const items = list.filter((item) => item.id !== id);
-    setList(items);
-  }
-
-  function toggleComplete(id) {
-    const items = list.map((item) => {
-      if (item.id == id) {
-        item.complete = !item.complete;
-      }
-      return item;
-    });
-
-    setList(items);
-  }
-
   useEffect(() => {
-    let incompleteCount = list.filter((item) => !item.complete).length;
+    let incompleteCount = list.filter(item => item.complete!=='complete').length;
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incomplete}`;
   }, [list]);
@@ -45,7 +55,7 @@ const ToDo = () => {
           className="bp3-navbar .modifier "
           style={{ color: "white", backgroundColor: "#8F398F" }}
         >
-          <h1>To Do List Manger: ({incomplete})</h1>
+          <h1 style={{ color: "white" }}>To Do List Manger: ({incomplete})</h1>
         </nav>
       </header>
       <div className="div-flex">
@@ -53,11 +63,11 @@ const ToDo = () => {
           <Card interactive={true} elevation={Elevation.TWO}>
             <form onSubmit={handleSubmit}>
               <h2>Add To Do Item</h2>
-              <FormGroup label="To Do Item" labelFor="text-input">
+              <FormGroup label="To Do Item" labelFor="ToDo">
                 <input
-                  class="bp3-input .modifier"
-                  onChange={handleChange}
-                  name="text"
+                  className="bp3-input .modifier"
+                  onChange={handleChangeITem}
+                  name="ToDo"
                   type="text"
                   placeholder="Item Details"
                   dir="auto"
@@ -66,8 +76,8 @@ const ToDo = () => {
 
               <FormGroup label="Assigned To" labelFor="assignee">
                 <input
-                  class="bp3-input .modifier"
-                  onChange={handleChange}
+                  className="bp3-input .modifier"
+                  onChange={handleChangeAssigne}
                   name="assignee"
                   type="text"
                   placeholder="Assignee Name"
@@ -77,6 +87,7 @@ const ToDo = () => {
               <br />
               <FormGroup label="Difficulty" labelFor="assignee">
                 <input
+                  className=".modifier"
                   onChange={handleChange}
                   defaultValue={3}
                   type="range"
@@ -84,19 +95,27 @@ const ToDo = () => {
                   max={5}
                   name="difficulty"
                   dir="auto"
+                  style={{ width: "175px", backgroundColor: "#9c27b0" }}
                 />
               </FormGroup>
 
               <br />
 
               <label>
-                <Button type="submit">Add Item</Button>
+                <Button
+                  type="submit"
+                  className="bp3-intent-primary"
+                  style={{ width: "175px", backgroundColor: "#9c27b0" }}
+                >
+                  Add Item
+                </Button>
               </label>
             </form>
           </Card>
         </div>
         <div>
-          <List list={list}  toggleComplete={toggleComplete}/>
+          <List list={list}  setList={setList}  setComplete={setComplete}
+          complete={complete} />
         </div>
       </div>
     </>

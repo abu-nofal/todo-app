@@ -39,16 +39,12 @@ function Signup() {
             </header>
             <section className="ftco-section">
         <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-md-6 text-center mb-5">
-              <h2 className="heading-section">sign-up </h2>
-            </div>
-          </div>
+          
           <div className="row justify-content-center">
             <div className="col-md-6 col-lg-5">
               <div className="login-wrap p-4 p-md-5">
                 <div className="icon d-flex align-items-center justify-content-center">
-                  <span className="fa fa-user-o"></span>
+                  <span className="fa fa-user-o">S-UP</span>
                 </div>
                
                 <form onSubmit={handlerSubmit}>
