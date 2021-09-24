@@ -14,8 +14,9 @@ function Header() {
         <Link className="bp3-button bp3-minimal bp3-icon-home" to="/">Home</Link>
          
           <span className="bp3-navbar-divider"></span>
-          <Link className="bp3-button bp3-minimal bp3-icon-cog" to="/form">formSetting</Link>
-          
+          <Link className="bp3-button bp3-minimal bp3-icon-cog" to="/form">Settings</Link>
+          <span className="bp3-navbar-divider"></span>
+
           <button className="bp3-button bp3-minimal bp3-icon-log-out" onClick={context.logout} >log-out</button>
           
         </div>
