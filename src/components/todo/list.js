@@ -11,7 +11,7 @@ const settings = useContext(SettingsContext)
   
   const usersPerPage = settings.numOfItems;
   const pagesVisited = pageNumber * usersPerPage;
-  const API = 'https://ibrahem-todo-server.herokuapp.com'
+  const API = 'https://todo-back-end-ahmad.herokuapp.com'
 
   async function deleteItem(id) {
     const token = cookie.load("token");
